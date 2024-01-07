@@ -1,18 +1,29 @@
 import { useState } from 'react'
 import { CiPen } from "react-icons/ci";
 import { RiSubtractFill } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const Card = ({id, title, image, price}) => {
+  const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false)
   const [showRemove, setShowRemove] = useState(false)
 
+  async function handleDelete(){
+    try{
+      const response = await axios.delete(`http://localhost:4000/inventory/${id}`)
+    }catch(err){
+      console.log('Error updating inventory', err.message)
+    }
+  }
+
   return (
-    <div
-      key={id} 
+    <div 
       className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl mx-3 relative'
     >
 
       <button 
+        onClick={() => navigate(`/update/${id}`) }
         onMouseEnter={() => setShowUpdate(true)}
         onMouseLeave={() => setShowUpdate(false)}
         className='absolute border border-black bottom-2 right-2 p-1 rounded-full cursor-pointer hover:bg-blue-600 hover:text-white'
