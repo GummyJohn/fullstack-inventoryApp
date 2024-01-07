@@ -3,26 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Card from './Card';
 
-const HomePage = ({inventory, setInventory}) => {
+const HomePage = ({handleUpdate}) => {
   const navigate = useNavigate();
-
-  async function handleUpdate(){
-    try{
-      const response = await axios.put('http://localhost:4000/inventory')
-      console.log(response.data)
-    }catch(err){
-      console.log('Error updating inventory', err.message)
-    }
-  }
-
-  async function handleDelete(){
-    try{
-      const response = await axios.delete('http://localhost:4000/inventory')
-      console.log(response.data)
-    }catch(err){
-      console.log('Error updating inventory', err.message)
-    }
-  }
+  const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
     async function getInventory(){
@@ -36,7 +19,7 @@ const HomePage = ({inventory, setInventory}) => {
 
     getInventory()
   }, [])
-  console.log(inventory)
+  
   return (
     <div className='flex flex-col justify-center items-center mt-16'>
       <h1 className='text-3xl'>Inventory Management</h1>
@@ -47,27 +30,13 @@ const HomePage = ({inventory, setInventory}) => {
         >
           Add
         </button>
-
-        <button 
-          onClick={handleUpdate}
-          className='border border-black py-2 px-4 rounded-3xl mx-2 hover:bg-stone-600 hover:text-white'
-        >
-          Update
-        </button>
-    
-      
-        <button 
-          onClick={handleDelete}
-          className='border border-black py-2 px-4 rounded-3xl mx-2 hover:bg-red-600 hover:text-white'
-        >
-          Delete
-        </button>
       </div>
       
       <div className='flex items-center justify-start w-full py-5 px-8'>
         {inventory.map((item) => {
           return (
             <Card
+              key={item.id}
               id={item.id}
               image={item.image}
               price={item.price}

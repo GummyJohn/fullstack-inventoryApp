@@ -3,6 +3,8 @@ const dataControl = {
   setInventory: function(data){ return this.inventory = data }
 }
 
+// console.log(dataControl.inventory);
+
 const express = require('express');
 const fsPromise = require('fs').promises;
 const router = express.Router();
@@ -12,7 +14,15 @@ router.get('/', (req, res) => {
   res.json({data: dataControl.inventory})
 })
 
-router.post('/post', upload.single("file"), async (req, res) => {
+router.get('/:id', (req, res) => {
+  const reqId = req.params.id
+
+  const foundedItem = dataControl.inventory.find((item) => item.id === parseInt(reqId));
+
+  res.json(foundedItem);
+})
+
+router.post('/', upload.single("file"), async (req, res) => {
   const newItem = {...req.body, image: req.file.originalname};
 
   dataControl.setInventory([...dataControl.inventory, newItem])
@@ -25,12 +35,29 @@ router.post('/post', upload.single("file"), async (req, res) => {
   res.sendStatus(200)
 })
 
-router.put('/', (req, res) => {
-  res.send('put request')
+router.put('/:id', async (req, res) => {
+  const redId = parseInt(req.params.id);
+  const updatedItem = req.body;
+
+  const index = dataControl.inventory.findIndex((item) => item.id === redId);
+
+  if(index !== -1){
+    dataControl.inventory[index] = {
+      ...dataControl.inventory[index], 
+      ...updatedItem
+    };
+
+    await fsPromise.writeFile(
+      '../server/database/inventoryDB.json', 
+      JSON.stringify(dataControl.inventory)
+    )  
+
+    res.sendStatus(200);
+  }
 })
 
-router.delete('/', (req, res) => {
-  res.send('delete request')
+router.delete('/:id', (req, res) => {
+
 })
 
 module.exports = router;
