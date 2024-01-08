@@ -51,7 +51,7 @@ const UpdateForm = () => {
   return (
     <div className='flex flex-col justify-center items-center mt-16'>
       <div>
-        <h1 className='my-5 text-3xl'>Update {updateInfo.title}</h1>
+        <h1 className='my-5 text-3xl text-center'>Update {updateInfo.title}</h1>
         <h2
           onClick={() => navigate('/')}
           className='text-center mt-10 cursor-pointer hover:text-blue-600 hover:underline text-xl'
@@ -61,9 +61,9 @@ const UpdateForm = () => {
       </div>
 
       <form onSubmit={handleUpdate}
-        className='flex border border-black p-2 px-4 rounded-2xl max-w-[1000px] h-[500px] mt-10'
+        className='md:flex border border-black p-2 px-4 rounded-2xl md:w-[1000px] md:h-[500px] mt-10 w-full h-full'
       >
-        <div className='w-[50%] p-2 px-4'>
+        <div className='md:w-[50%] p-2 px-4'>
           <div className='border border-black h-[90%] rounded-2xl my-2'>
             <img 
               src={`../src/images/productImages/${updateInfo.image}`} 
@@ -74,7 +74,7 @@ const UpdateForm = () => {
           </div>
         </div>
 
-        <div className=' p-2 w-[50%]'>
+        <div className=' p-2 md:w-[50%]'>
 
           <div className='flex flex-col mb-2'>
             <label htmlFor="title"
@@ -117,11 +117,13 @@ const UpdateForm = () => {
             ></textarea>
           </div>
 
-          <button
-            className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500'
-          >
-            Update
-          </button>
+          <div className='text-center'>
+            <button
+              className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500 '
+            >
+              Update
+            </button>
+          </div>
         </div>
       </form>
     </div>
