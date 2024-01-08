@@ -6,6 +6,7 @@ const dataControl = {
 // console.log(dataControl.inventory);
 
 const express = require('express');
+const path = require('path');
 const fsPromise = require('fs').promises;
 const router = express.Router();
 const upload = require('../multer');
@@ -23,7 +24,11 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', upload.single("file"), async (req, res) => {
-  const newItem = {...req.body, image: req.file.originalname};
+  const newItem = {
+    id: dataControl.inventory.length + 1, 
+    ...req.body, 
+    image: req.file.originalname
+  };
 
   dataControl.setInventory([...dataControl.inventory, newItem])
 
@@ -56,7 +61,31 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
+  const deleteId = parseInt(req.params.id);
+  
+  const foundedItem = dataControl.inventory.find((item) => item.id === deleteId);
+
+  if(foundedItem){
+    const imagePath = path.join(__dirname, '../../client/inventoryApp/src/images/productImages', foundedItem.image);
+
+    try{
+      await fsPromise.unlink(imagePath);
+
+      const filteredInventory = dataControl.inventory.filter((item) => item.id !== deleteId);
+    
+      dataControl.setInventory(filteredInventory);
+    
+      await fsPromise.writeFile(
+        '../server/database/inventoryDB.json', 
+        JSON.stringify(filteredInventory)
+      )  
+    
+      res.sendStatus(200);
+    }catch(err){
+      res.status(400).json({message: err.message})
+    }
+  }
 
 })
 

@@ -4,24 +4,18 @@ import { RiSubtractFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-const Card = ({id, title, image, price}) => {
+const Card = ({id, title, image, price,onClick}) => {
   const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false)
   const [showRemove, setShowRemove] = useState(false)
 
-  async function handleDelete(){
-    try{
-      const response = await axios.delete(`http://localhost:4000/inventory/${id}`)
-    }catch(err){
-      console.log('Error updating inventory', err.message)
-    }
-  }
-
   return (
     <div 
-      className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl mx-3 relative'
+      onMouseEnter={() => setShowDescription(true)}
+      onMouseLeave={() => setShowDescription(false)}
+      className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl m-3 relative'
     >
-
+ 
       <button 
         onClick={() => navigate(`/update/${id}`) }
         onMouseEnter={() => setShowUpdate(true)}
@@ -39,6 +33,7 @@ const Card = ({id, title, image, price}) => {
       </button>     
       
       <button 
+        onClick={onClick}
         onMouseEnter={() => setShowRemove(true)}
         onMouseLeave={() => setShowRemove(false)}
         className='absolute border border-black bottom-2 left-2 p-1 rounded-full cursor-pointer hover:bg-red-600 hover:text-white'
@@ -53,12 +48,12 @@ const Card = ({id, title, image, price}) => {
         <RiSubtractFill className="text-xl"/>
       </button>
 
-      <div className='h-[70%]'>
+      <div className='h-[70%] p-1'>
         <img src={`../src/images/productImages/${image}`} alt="" 
           className='w-full h-full rounded-tl-2xl rounded-tr-2xl'
         />
       </div>
-      <div className='text-center rounded-bl-2xl rounded-br-2xl bg-stone-100 h-[30%]'>
+      <div className='text-center rounded-bl-2xl rounded-br-2xl bg-stone-100 h-[30%] pt-3'>
         <h1 className=''>{title}</h1>
         <h2>$ {price}</h2>
       </div>

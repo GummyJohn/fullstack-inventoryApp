@@ -4,8 +4,8 @@ import axios from 'axios'
 
 const UpdateForm = () => {
   const navigate = useNavigate();
-
   const { id } = useParams();
+  
   const [updateInfo, setUpdateInfo] = useState({
     title: '',
     price: '',
@@ -50,10 +50,18 @@ const UpdateForm = () => {
 
   return (
     <div className='flex flex-col justify-center items-center mt-16'>
-      <h1 className='my-5 text-3xl'>Update {updateInfo.title}</h1>
+      <div>
+        <h1 className='my-5 text-3xl'>Update {updateInfo.title}</h1>
+        <h2
+          onClick={() => navigate('/')}
+          className='text-center mt-10 cursor-pointer hover:text-blue-600 hover:underline text-xl'
+        > 
+          Back to Home
+        </h2>
+      </div>
 
       <form onSubmit={handleUpdate}
-        className='flex border border-black p-2 px-4 rounded-2xl max-w-[1000px] h-[500px]'
+        className='flex border border-black p-2 px-4 rounded-2xl max-w-[1000px] h-[500px] mt-10'
       >
         <div className='w-[50%] p-2 px-4'>
           <div className='border border-black h-[90%] rounded-2xl my-2'>
