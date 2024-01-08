@@ -2,17 +2,14 @@ import { useState } from 'react'
 import { CiPen } from "react-icons/ci";
 import { RiSubtractFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
 
-const Card = ({id, title, image, price,onClick}) => {
+const Card = ({id, title, image, price, stock,onClick}) => {
   const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false)
   const [showRemove, setShowRemove] = useState(false)
 
   return (
     <div 
-      onMouseEnter={() => setShowDescription(true)}
-      onMouseLeave={() => setShowDescription(false)}
       className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl m-3 relative'
     >
  
@@ -56,6 +53,7 @@ const Card = ({id, title, image, price,onClick}) => {
       <div className='text-center rounded-bl-2xl rounded-br-2xl bg-stone-100 h-[30%] pt-3'>
         <h1 className=''>{title}</h1>
         <h2>$ {price}</h2>
+        <h3 className='text-green-400'>{stock > 0 && 'In Stock'}</h3>
       </div>
     </div>
   )
