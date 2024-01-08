@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { CiPen } from "react-icons/ci";
 import { RiSubtractFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
 
 const Card = ({id, title, image, price, stock,onClick}) => {
   const navigate = useNavigate();
