@@ -37,43 +37,38 @@ const HomePage = () => {
   }, [])
   
   return (
-    <>
-      <div>
+    <div className='flex flex-col justify-center items-center mt-16'>
+      <h1 className='text-3xl'>Inventory Management</h1>
 
+      <div className='flex items-center justify-center flex-wrap w-full py-5 px-8 mt-20 w-[90%]'>
+        {inventory.map((item) => {
+          if(item === '+'){
+            return (
+              <div
+                key={0}
+                onClick={() => navigate('/add')}
+                className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl hover:bg-stone-100 mx-3 flex flex-col justify-center items-center cursor-pointer'
+              >
+                <IoIosAdd className='text-6xl'/>
+                <h1 className='text-3xl'>Add Item</h1>
+              </div>
+            )
+          }else{
+            return (
+              <Card
+                key={item.id}
+                id={item.id}
+                image={item.image}
+                price={item.price}
+                title={item.title}
+                stock={item.stock}
+                onClick={() => handleDelete(item.id)}
+              />  
+            )
+          }
+        })}
       </div>
-      <div className='flex flex-col justify-center items-center mt-16'>
-        <h1 className='text-3xl'>Inventory Management</h1>
-        
-        <div className='flex items-center justify-center flex-wrap w-full py-5 px-8 mt-20 w-[90%]'>
-          {inventory.map((item) => {
-            if(item === '+'){
-              return (
-                <div
-                  key={0}
-                  onClick={() => navigate('/add')}
-                  className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl hover:bg-stone-100 mx-3 flex flex-col justify-center items-center cursor-pointer'
-                >
-                  <IoIosAdd className='text-6xl'/>
-                  <h1 className='text-3xl'>Add Item</h1>
-                </div>
-              )
-            }else{
-              return (
-                <Card
-                  key={item.id}
-                  id={item.id}
-                  image={item.image}
-                  price={item.price}
-                  title={item.title}
-                  onClick={() => handleDelete(item.id)}
-                />  
-              )
-            }
-          })}
-        </div>
-      </div>
-
-    </>
+    </div>
   )
 }
 

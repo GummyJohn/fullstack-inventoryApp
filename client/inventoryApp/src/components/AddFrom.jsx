@@ -39,7 +39,7 @@ const AddFrom = () => {
   }
   
   return (
-    <div className='flex flex-col justify-center items-center mt-16'>
+    <div className='flex flex-col justify-center items-center mt-16 m-2'>
       <div className='my-5 '>
         <h1 className='text-3xl'>Add to the Inventory</h1>
         <h2
@@ -54,9 +54,9 @@ const AddFrom = () => {
         method='POST'
         action='http://localhost:4000/post'
         encType= 'multipart/form-data'
-        className='flex border border-black p-2 px-4 rounded-2xl max-w-[1000px] h-[500px]'
+        className='flex flex-col border border-black p-2 px-4 rounded-2xl w-full h-full md:flex-row md:max-w-[1000px] md:h-[500px]'
       >
-        <div className='w-[50%] p-2 px-4'>
+        <div className='md:w-[50%] p-2 px-4'>
           <div className='border border-black h-[90%] rounded-2xl my-2'>
             <img 
               src={image ? image : '../src/images/questionmark.png'} 
@@ -65,11 +65,13 @@ const AddFrom = () => {
             />
           </div>
 
-          <label htmlFor="picture"
-            className='py-2 px-4 bg-blue-600 text-white rounded-2xl cursor-pointer hover:bg-black'
-          >
-            Add Image
-          </label>
+          <div className='text-center '>
+            <label htmlFor="picture"
+              className='py-2 px-4 bg-blue-600 text-white rounded-2xl cursor-pointer hover:bg-black'
+            >
+              Add Image
+            </label>
+          </div>
           
           <input type="file" id="picture"
             className='hidden'
@@ -77,7 +79,7 @@ const AddFrom = () => {
           />
         </div>
 
-        <div className=' p-2 w-[50%]'>
+        <div className=' p-2 md:w-[50%]'>
 
           <div className='flex flex-col mb-2'>
             <label htmlFor="title"
@@ -120,11 +122,13 @@ const AddFrom = () => {
             ></textarea>
           </div>
 
-          <button
-            className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500'
-          >
-            ADD
-          </button>
+          <div className='text-center'>
+            <button
+              className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500'
+            >
+              ADD
+            </button>
+          </div>
 
         </div>
 
