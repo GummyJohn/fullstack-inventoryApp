@@ -40,7 +40,15 @@ const AddFrom = () => {
   
   return (
     <div className='flex flex-col justify-center items-center mt-16'>
-      <h1 className='my-5 text-3xl'>Add to the Inventory</h1>
+      <div className='my-5 '>
+        <h1 className='text-3xl'>Add to the Inventory</h1>
+        <h2
+          onClick={() => navigate('/')}
+          className='text-center mt-10 cursor-pointer hover:text-blue-600 hover:underline text-xl'
+        > 
+          Back to Home
+        </h2>
+      </div>
 
       <form onSubmit={handleAdd}
         method='POST'
@@ -121,6 +129,7 @@ const AddFrom = () => {
         </div>
 
       </form>
+
     </div>
   )
 }
