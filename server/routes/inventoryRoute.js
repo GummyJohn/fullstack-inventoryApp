@@ -3,12 +3,10 @@ const dataControl = {
   setInventory: function(data){ return this.inventory = data }
 }
 
-// console.log(dataControl.inventory);
-
 const express = require('express');
+const router = express.Router();
 const path = require('path');
 const fsPromise = require('fs').promises;
-const router = express.Router();
 const upload = require('../multer');
 
 router.get('/', (req, res) => {
@@ -27,7 +25,8 @@ router.post('/', upload.single("file"), async (req, res) => {
   const newItem = {
     id: dataControl.inventory.length + 1, 
     ...req.body, 
-    image: req.file.originalname
+    image: req.file.originalname,
+    stock: 25
   };
 
   dataControl.setInventory([...dataControl.inventory, newItem])

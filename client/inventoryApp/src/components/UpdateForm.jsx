@@ -6,6 +6,7 @@ const UpdateForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   
+  const [error, setError] = useState(false);
   const [updateInfo, setUpdateInfo] = useState({
     title: '',
     price: '',
@@ -41,8 +42,9 @@ const UpdateForm = () => {
           description: response.data?.description,
           image: response.data?.image,
         })
+        
       }catch(err){
-        console.log('Error getting info', err.message)
+        setError(true);
       }
     }
     getItemInfo();
@@ -63,68 +65,78 @@ const UpdateForm = () => {
       <form onSubmit={handleUpdate}
         className='md:flex border border-black p-2 px-4 rounded-2xl md:w-[1000px] md:h-[500px] mt-10 w-full h-full'
       >
-        <div className='md:w-[50%] p-2 px-4'>
-          <div className='border border-black h-[90%] rounded-2xl my-2'>
-            <img 
-              src={`../src/images/productImages/${updateInfo.image}`} 
-              alt="image" 
-              name="image"
-              className='rounded-2xl h-full w-full'
-            />
-          </div>
-        </div>
+        {
+          error ? 
+          <div className='text-red-500 text-5xl h-full w-full flex flex-col justify-center items-center'>
+            <h1>Sorry! Something went wrong,</h1>
+            <h2>Try Refreshing the page</h2>
+          </div> :
+          <>
+            <div className='md:w-[50%] p-2 px-4'>
+              <div className='border border-black h-[90%] rounded-2xl my-2'>
+                <img 
+                  src={`../src/images/productImages/${updateInfo.image}`} 
+                  alt="image" 
+                  name="image"
+                  className='rounded-2xl h-full w-full'
+                />
+              </div>
+            </div>
 
-        <div className=' p-2 md:w-[50%]'>
+            <div className=' p-2 md:w-[50%]'>
 
-          <div className='flex flex-col mb-2'>
-            <label htmlFor="title"
-              className='text-2xl'
-            >
-              Title:
-            </label>
-            <input type="text" id="title" name="title"
-              className='p-1 px-2 border border-black rounded-xl'
-              value={updateInfo.title}
-              onChange={changeValue}
-            />
-          </div>
-          
-          <div className='flex flex-col mb-2'>
-            <label htmlFor="price"
-              className='text-2xl'
-            >
-              Price:
-            </label>
-            <input type="number" id="price" min="0" name="price"
-              className='p-1 px-2 border border-black rounded-xl'
-              value={updateInfo.price}
-              onChange={changeValue}
-            />
-          </div>
-          
-          <div className='flex flex-col mb-2'>
-            <label htmlFor="description"
-              className='text-2xl'
-            >
-              Description:
-            </label>
-            <textarea 
-              name="description" id="description" 
-              cols="50" rows="10"
-              className='p-1 px-2 border border-black rounded-xl'
-              value={updateInfo.description}
-              onChange={changeValue}
-            ></textarea>
-          </div>
+              <div className='flex flex-col mb-2'>
+                <label htmlFor="title"
+                  className='text-2xl'
+                >
+                  Title:
+                </label>
+                <input type="text" id="title" name="title"
+                  className='p-1 px-2 border border-black rounded-xl'
+                  value={updateInfo.title}
+                  onChange={changeValue}
+                />
+              </div>
+              
+              <div className='flex flex-col mb-2'>
+                <label htmlFor="price"
+                  className='text-2xl'
+                >
+                  Price:
+                </label>
+                <input type="number" id="price" min="0" name="price"
+                  className='p-1 px-2 border border-black rounded-xl'
+                  value={updateInfo.price}
+                  onChange={changeValue}
+                />
+              </div>
+              
+              <div className='flex flex-col mb-2'>
+                <label htmlFor="description"
+                  className='text-2xl'
+                >
+                  Description:
+                </label>
+                <textarea 
+                  name="description" id="description" 
+                  cols="50" rows="10"
+                  className='p-1 px-2 border border-black rounded-xl'
+                  value={updateInfo.description}
+                  onChange={changeValue}
+                ></textarea>
+              </div>
 
-          <div className='text-center'>
-            <button
-              className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500 '
-            >
-              Update
-            </button>
-          </div>
-        </div>
+              <div className='text-center'>
+                <button
+                  className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500 '
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </>
+
+        }
       </form>
     </div>
   )

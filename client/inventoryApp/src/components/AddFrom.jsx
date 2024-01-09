@@ -51,8 +51,6 @@ const AddFrom = () => {
       </div>
 
       <form onSubmit={handleAdd}
-        method='POST'
-        action='http://localhost:4000/post'
         encType= 'multipart/form-data'
         className='flex flex-col border border-black p-2 px-4 rounded-2xl w-full h-full md:flex-row md:max-w-[1000px] md:h-[500px]'
       >
@@ -124,7 +122,10 @@ const AddFrom = () => {
 
           <div className='text-center'>
             <button
-              className='border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500'
+              className={
+                (!title || !price || !description|| !image ) ? 'hidden' :
+                'border border-white py-1 px-4 rounded-2xl bg-blue-600 text-white hover:bg-stone-500'
+              }
             >
               ADD
             </button>
