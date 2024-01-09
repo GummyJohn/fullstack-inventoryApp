@@ -19,7 +19,7 @@ const OverLayProduct = ({id, setShowProduct}) => {
   }, [])
 
   return (
-    <div className='absolute h-full w-full bg-black bg-opacity-80 z-30 top-0 flex justify-center items-center'>
+    <div className='absolute h-full w-full bg-black bg-opacity-80 z-50 top-0 flex justify-center items-center'>
       
       <div className='relative'>
         <div className='realtive border border-white w-[1000px] rounded-2xl bg-white flex items-center p-4'>

@@ -20,6 +20,9 @@ const AddFrom = () => {
   
   async function handleAdd(e){
     e.preventDefault();
+    if(!title || !price || !description || !image){
+      return;
+    }
     
     const formData = new FormData();
     formData.append('title', title)
