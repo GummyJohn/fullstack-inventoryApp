@@ -3,28 +3,42 @@ import { CiPen } from "react-icons/ci";
 import { RiSubtractFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import OverLayProduct from './OverLayProduct';
+import DeleteLayout from './DeleteLayout';
 
-const Card = ({id, title, image, price, stock, onClick}) => {
+const Card = ({id, title, image, price, stock, handleDelete}) => {
   const navigate = useNavigate();
   const [showUpdate, setShowUpdate] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
   const [showProduct, setShowProduct] = useState(false);
+  const [showErrorOverlay, setShowErrorOverlay] = useState(false);
 
   return (
     <>
       {showProduct && (
        <OverLayProduct id={id} setShowProduct={setShowProduct}/>
       )}
+      
+      {showErrorOverlay && (
+       <DeleteLayout 
+        id={id} 
+        setShowErrorOverlay={setShowErrorOverlay}
+        handleDelete={handleDelete}
+      />
+      )}
+
       <div 
-        onClick={() => setShowProduct(true)}
         className='w-[250px] h-[300px] border border-black rounded-2xl hover:shadow-xl m-3 relative'
       >
-  
+        <div 
+          onClick={() => setShowProduct(true)}
+          className='absolute h-full w-full rounded-2xl z-10 '
+        ></div>
+
         <button 
           onClick={() => navigate(`/update/${id}`) }
           onMouseEnter={() => setShowUpdate(true)}
           onMouseLeave={() => setShowUpdate(false)}
-          className='absolute border border-black bottom-2 right-2 p-1 rounded-full cursor-pointer hover:bg-blue-600 hover:text-white'
+          className='absolute border border-black bottom-2 right-2 p-1 rounded-full cursor-pointer hover:bg-blue-600 hover:text-white z-30'
         >
           {showUpdate && (
               <div className="absolute border border-black w-[150px] left-[-112px] top-8 bg-blue-600 text-white rounded-2xl">
@@ -35,12 +49,13 @@ const Card = ({id, title, image, price, stock, onClick}) => {
           }
           <CiPen className="text-xl"/>
         </button>     
+
         
         <button 
-          onClick={onClick}
+          onClick={() => setShowErrorOverlay(true)}
           onMouseEnter={() => setShowRemove(true)}
           onMouseLeave={() => setShowRemove(false)}
-          className='absolute border border-black bottom-2 left-2 p-1 rounded-full cursor-pointer hover:bg-red-600 hover:text-white'
+          className='absolute border border-black bottom-2 left-2 p-1 rounded-full cursor-pointer hover:bg-red-600 hover:text-white z-30'
         >
           {showRemove && (
               <div className="absolute border border-black w-[150px] top-8 bg-red-600 text-white rounded-2xl left-[-9px]">

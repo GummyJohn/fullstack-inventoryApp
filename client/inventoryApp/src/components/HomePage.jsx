@@ -62,7 +62,7 @@ const HomePage = () => {
                 price={item.price}
                 title={item.title}
                 stock={item.stock}
-                onClick={() => handleDelete(item.id)}
+                handleDelete={handleDelete}
               />  
             )
           }
